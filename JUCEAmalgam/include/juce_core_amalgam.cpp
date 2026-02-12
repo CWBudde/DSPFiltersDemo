@@ -131,6 +131,8 @@
 
   #if defined (__ppc__) || defined (__ppc64__)
 	#define JUCE_PPC 1
+  #elif defined (__arm64__) || defined (__aarch64__)
+	#define JUCE_ARM 1
   #else
 	#define JUCE_INTEL 1
   #endif
