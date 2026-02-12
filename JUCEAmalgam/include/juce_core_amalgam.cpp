@@ -32318,8 +32318,9 @@ void Process::raisePrivilege()
 	// If running suid root, change effective user to root
 	if (geteuid() != 0 && getuid() == 0)
 	{
-		auto result1 __attribute__((unused)) = setreuid (geteuid(), getuid());
-		auto result2 __attribute__((unused)) = setregid (getegid(), getgid());
+		int ret1 = setreuid (geteuid(), getuid());
+		int ret2 = setregid (getegid(), getgid());
+		(void)ret1; (void)ret2;
 	}
 }
 
@@ -32328,8 +32329,9 @@ void Process::lowerPrivilege()
 	// If runing suid root, change effective user back to real user
 	if (geteuid() == 0 && getuid() != 0)
 	{
-		auto result1 __attribute__((unused)) = setreuid (geteuid(), getuid());
-		auto result2 __attribute__((unused)) = setregid (getegid(), getgid());
+		int ret1 = setreuid (geteuid(), getuid());
+		int ret2 = setregid (getegid(), getgid());
+		(void)ret1; (void)ret2;
 	}
 }
 
