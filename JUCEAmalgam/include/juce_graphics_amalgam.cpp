@@ -13636,7 +13636,7 @@ typedef my_color_converter * my_cconvert_ptr;
 
 /* We allocate one big table and divide it up into eight parts, instead of
  * doing eight alloc_small requests.  This lets us use a single table base
- * address, which can be held in a register in the inner loops on many
+ * address, which can be held in a in the inner loops on many
  * machines (more than can hold all eight addresses, anyway).
  */
 
@@ -32238,9 +32238,9 @@ pass2_no_dither (j_decompress_ptr cinfo,
 {
   my_cquantize_ptr2 cquantize = (my_cquantize_ptr2) cinfo->cquantize;
   hist3d histogram = cquantize->histogram;
-  register JSAMPROW inptr, outptr;
-  register histptr cachep;
-  register int c0, c1, c2;
+  JSAMPROW inptr, outptr;
+  histptr cachep;
+  int c0, c1, c2;
   int row;
   JDIMENSION col;
   JDIMENSION width = cinfo->output_width;
@@ -32271,10 +32271,10 @@ pass2_fs_dither (j_decompress_ptr cinfo,
 {
   my_cquantize_ptr2 cquantize = (my_cquantize_ptr2) cinfo->cquantize;
   hist3d histogram = cquantize->histogram;
-  register LOCFSERROR cur0, cur1, cur2;	/* current error or pixel value */
+  LOCFSERROR cur0, cur1, cur2;	/* current error or pixel value */
   LOCFSERROR belowerr0, belowerr1, belowerr2; /* error for pixel below cur */
   LOCFSERROR bpreverr0, bpreverr1, bpreverr2; /* error for below/prev col */
-  register FSERRPTR errorptr;	/* => fserrors[] at column before current */
+  FSERRPTR errorptr;	/* => fserrors[] at column before current */
   JSAMPROW inptr;		/* => current input pixel */
   JSAMPROW outptr;		/* => current output pixel */
   histptr cachep;
@@ -32349,7 +32349,7 @@ pass2_fs_dither (j_decompress_ptr cinfo,
 	  if (*cachep == 0)
 	fill_inverse_cmap(cinfo, cur0>>C0_SHIFT,cur1>>C1_SHIFT,cur2>>C2_SHIFT);
 	  /* Now emit the colormap index for this cell */
-	  { register int pixcode = *cachep - 1;
+	  { int pixcode = *cachep - 1;
 	*outptr = (JSAMPLE) pixcode;
 	/* Compute representation error for this pixel */
 	cur0 -= GETJSAMPLE(colormap0[pixcode]);
@@ -32725,13 +32725,13 @@ jcopy_sample_rows (JSAMPARRAY input_array, int source_row,
  * The source and destination arrays must be at least as wide as num_cols.
  */
 {
-  register JSAMPROW inptr, outptr;
+  JSAMPROW inptr, outptr;
 #ifdef FMEMCOPY
-  register size_t count = (size_t) (num_cols * SIZEOF(JSAMPLE));
+  size_t count = (size_t) (num_cols * SIZEOF(JSAMPLE));
 #else
-  register JDIMENSION count;
+  JDIMENSION count;
 #endif
-  register int row;
+  int row;
 
   input_array += source_row;
   output_array += dest_row;
@@ -41752,11 +41752,11 @@ void PNGAPI
 png_err(png_structp png_ptr)
 {
    if (png_ptr != NULL && png_ptr->error_fn != NULL)
-	  (*(png_ptr->error_fn))(png_ptr, '\0');
+	  (*(png_ptr->error_fn))(png_ptr, "");
 
    /* If the custom handler doesn't exist, or if it returns,
 	  use the default handler, which will not return. */
-   png_default_error(png_ptr, '\0');
+   png_default_error(png_ptr, "");
 }
 #endif /* PNG_NO_ERROR_TEXT */
 
