@@ -6,9 +6,9 @@
 > has remained veiled in secrecy with little publicly available source
 > code...until now."
 
-<a href="https://github.com/downloads/vinniefalco/DSPFilters/DSPFiltersComplete.zip">
-<img src="https://github.com/vinniefalco/vinniefalco.github.com/raw/master/images/DownloadNow.png">
-</a>
+### Download
+
+Pre-built binaries for Windows, macOS, and Linux are available in the [Releases](https://github.com/cwbudde/DSPFiltersDemo/releases) section.
 
 ### What is this?
 
