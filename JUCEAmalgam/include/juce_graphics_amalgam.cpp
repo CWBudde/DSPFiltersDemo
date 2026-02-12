@@ -13704,11 +13704,11 @@ rgb_ycc_convert (j_compress_ptr cinfo,
 		 JDIMENSION output_row, int num_rows)
 {
   my_cconvert_ptr cconvert = (my_cconvert_ptr) cinfo->cconvert;
-  register int r, g, b;
-  register INT32 * ctab = cconvert->rgb_ycc_tab;
-  register JSAMPROW inptr;
-  register JSAMPROW outptr0, outptr1, outptr2;
-  register JDIMENSION col;
+  int r, g, b;
+  INT32 * ctab = cconvert->rgb_ycc_tab;
+  JSAMPROW inptr;
+  JSAMPROW outptr0, outptr1, outptr2;
+  JDIMENSION col;
   JDIMENSION num_cols = cinfo->image_width;
 
   while (--num_rows >= 0) {
@@ -13758,11 +13758,11 @@ rgb_gray_convert (j_compress_ptr cinfo,
 		  JDIMENSION output_row, int num_rows)
 {
   my_cconvert_ptr cconvert = (my_cconvert_ptr) cinfo->cconvert;
-  register int r, g, b;
-  register INT32 * ctab = cconvert->rgb_ycc_tab;
-  register JSAMPROW inptr;
-  register JSAMPROW outptr;
-  register JDIMENSION col;
+  int r, g, b;
+  INT32 * ctab = cconvert->rgb_ycc_tab;
+  JSAMPROW inptr;
+  JSAMPROW outptr;
+  JDIMENSION col;
   JDIMENSION num_cols = cinfo->image_width;
 
   while (--num_rows >= 0) {
@@ -13796,11 +13796,11 @@ cmyk_ycck_convert (j_compress_ptr cinfo,
 		   JDIMENSION output_row, int num_rows)
 {
   my_cconvert_ptr cconvert = (my_cconvert_ptr) cinfo->cconvert;
-  register int r, g, b;
-  register INT32 * ctab = cconvert->rgb_ycc_tab;
-  register JSAMPROW inptr;
-  register JSAMPROW outptr0, outptr1, outptr2, outptr3;
-  register JDIMENSION col;
+  int r, g, b;
+  INT32 * ctab = cconvert->rgb_ycc_tab;
+  JSAMPROW inptr;
+  JSAMPROW outptr0, outptr1, outptr2, outptr3;
+  JDIMENSION col;
   JDIMENSION num_cols = cinfo->image_width;
 
   while (--num_rows >= 0) {
@@ -13849,9 +13849,9 @@ grayscale_convert (j_compress_ptr cinfo,
 		   JSAMPARRAY input_buf, JSAMPIMAGE output_buf,
 		   JDIMENSION output_row, int num_rows)
 {
-  register JSAMPROW inptr;
-  register JSAMPROW outptr;
-  register JDIMENSION col;
+  JSAMPROW inptr;
+  JSAMPROW outptr;
+  JDIMENSION col;
   JDIMENSION num_cols = cinfo->image_width;
   int instride = cinfo->input_components;
 
@@ -13877,10 +13877,10 @@ null_convert (j_compress_ptr cinfo,
 	      JSAMPARRAY input_buf, JSAMPIMAGE output_buf,
 	      JDIMENSION output_row, int num_rows)
 {
-  register JSAMPROW inptr;
-  register JSAMPROW outptr;
-  register JDIMENSION col;
-  register int ci;
+  JSAMPROW inptr;
+  JSAMPROW outptr;
+  JDIMENSION col;
+  int ci;
   int nc = cinfo->num_components;
   JDIMENSION num_cols = cinfo->image_width;
 
@@ -14372,9 +14372,9 @@ forward_DCT (j_compress_ptr cinfo, jpeg_component_info * compptr,
 
   for (bi = 0; bi < num_blocks; bi++, start_col += DCTSIZE) {
 	/* Load data into workspace, applying unsigned->signed conversion */
-	{ register DCTELEM *workspaceptr;
-	  register JSAMPROW elemptr;
-	  register int elemr;
+	{ DCTELEM *workspaceptr;
+	  JSAMPROW elemptr;
+	  int elemr;
 
 	  workspaceptr = workspace;
 	  for (elemr = 0; elemr < DCTSIZE; elemr++) {
@@ -14389,7 +14389,7 @@ forward_DCT (j_compress_ptr cinfo, jpeg_component_info * compptr,
 	*workspaceptr++ = GETJSAMPLE(*elemptr++) - CENTERJSAMPLE;
 	*workspaceptr++ = GETJSAMPLE(*elemptr++) - CENTERJSAMPLE;
 #else
-	{ register int elemc;
+	{ int elemc;
 	  for (elemc = DCTSIZE; elemc > 0; elemc--) {
 	    *workspaceptr++ = GETJSAMPLE(*elemptr++) - CENTERJSAMPLE;
 	  }
@@ -14402,9 +14402,9 @@ forward_DCT (j_compress_ptr cinfo, jpeg_component_info * compptr,
 	(*do_dct) (workspace);
 
 	/* Quantize/descale the coefficients, and store into coef_blocks[] */
-	{ register DCTELEM temp, qval;
-	  register int i;
-	  register JCOEFPTR output_ptr = coef_blocks[bi];
+	{ DCTELEM temp, qval;
+	  int i;
+	  JCOEFPTR output_ptr = coef_blocks[bi];
 
 	  for (i = 0; i < DCTSIZE2; i++) {
 	qval = divisors[i];
@@ -14461,9 +14461,9 @@ forward_DCT_float (j_compress_ptr cinfo, jpeg_component_info * compptr,
 
   for (bi = 0; bi < num_blocks; bi++, start_col += DCTSIZE) {
 	/* Load data into workspace, applying unsigned->signed conversion */
-	{ register FAST_FLOAT *workspaceptr;
-	  register JSAMPROW elemptr;
-	  register int elemr;
+	{ FAST_FLOAT *workspaceptr;
+	  JSAMPROW elemptr;
+	  int elemr;
 
 	  workspaceptr = workspace;
 	  for (elemr = 0; elemr < DCTSIZE; elemr++) {
@@ -14478,7 +14478,7 @@ forward_DCT_float (j_compress_ptr cinfo, jpeg_component_info * compptr,
 	*workspaceptr++ = (FAST_FLOAT)(GETJSAMPLE(*elemptr++) - CENTERJSAMPLE);
 	*workspaceptr++ = (FAST_FLOAT)(GETJSAMPLE(*elemptr++) - CENTERJSAMPLE);
 #else
-	{ register int elemc;
+	{ int elemc;
 	  for (elemc = DCTSIZE; elemc > 0; elemc--) {
 	    *workspaceptr++ = (FAST_FLOAT)
 	      (GETJSAMPLE(*elemptr++) - CENTERJSAMPLE);
@@ -14492,9 +14492,9 @@ forward_DCT_float (j_compress_ptr cinfo, jpeg_component_info * compptr,
 	(*do_dct) (workspace);
 
 	/* Quantize/descale the coefficients, and store into coef_blocks[] */
-	{ register FAST_FLOAT temp;
-	  register int i;
-	  register JCOEFPTR output_ptr = coef_blocks[bi];
+	{ FAST_FLOAT temp;
+	  int i;
+	  JCOEFPTR output_ptr = coef_blocks[bi];
 
 	  for (i = 0; i < DCTSIZE2; i++) {
 	/* Apply the quantization and scaling factor */
@@ -14891,8 +14891,8 @@ emit_bits (working_state * state, unsigned int code, int size)
 /* Emit some bits; return TRUE if successful, FALSE if must suspend */
 {
   /* This routine is heavily used, so it's worth coding tightly. */
-  register INT32 put_buffer = (INT32) code;
-  register int put_bits = state->cur.put_bits;
+  INT32 put_buffer = (INT32) code;
+  int put_bits = state->cur.put_bits;
 
   /* if size is 0, caller used an invalid Huffman table entry */
   if (size == 0)
@@ -14939,9 +14939,9 @@ LOCAL(boolean)
 encode_one_block (working_state * state, JCOEFPTR block, int last_dc_val,
 		  c_derived_tbl *dctbl, c_derived_tbl *actbl)
 {
-  register int temp, temp2;
-  register int nbits;
-  register int k, r, i;
+  int temp, temp2;
+  int nbits;
+  int k, r, i;
 
   /* Encode the DC coefficient difference per section F.1.2.1 */
 
@@ -15153,9 +15153,9 @@ LOCAL(void)
 htest_one_block (j_compress_ptr cinfo, JCOEFPTR block, int last_dc_val,
 		 long dc_counts[], long ac_counts[])
 {
-  register int temp;
-  register int nbits;
-  register int k, r;
+  int temp;
+  int nbits;
+  int k, r;
 
   /* Encode the DC coefficient difference per section F.1.2.1 */
 
@@ -17860,8 +17860,8 @@ emit_bits_p (phuff_entropy_ptr entropy, unsigned int code, int size)
 /* Emit some bits, unless we are in gather mode */
 {
   /* This routine is heavily used, so it's worth coding tightly. */
-  register INT32 put_buffer = (INT32) code;
-  register int put_bits = entropy->put_bits;
+  INT32 put_buffer = (INT32) code;
+  int put_bits = entropy->put_bits;
 
   /* if size is 0, caller used an invalid Huffman table entry */
   if (size == 0)
@@ -17942,7 +17942,7 @@ emit_buffered_bits (phuff_entropy_ptr entropy, char * bufstart,
 LOCAL(void)
 emit_eobrun (phuff_entropy_ptr entropy)
 {
-  register int temp, nbits;
+  int temp, nbits;
 
   if (entropy->EOBRUN > 0) {	/* if there is any pending EOBRUN */
 	temp = entropy->EOBRUN;
@@ -18002,8 +18002,8 @@ METHODDEF(boolean)
 encode_mcu_DC_first (j_compress_ptr cinfo, JBLOCKROW *MCU_data)
 {
   phuff_entropy_ptr entropy = (phuff_entropy_ptr) cinfo->entropy;
-  register int temp, temp2;
-  register int nbits;
+  int temp, temp2;
+  int nbits;
   int blkn, ci;
   int Al = cinfo->Al;
   JBLOCKROW block;
@@ -18088,9 +18088,9 @@ METHODDEF(boolean)
 encode_mcu_AC_first (j_compress_ptr cinfo, JBLOCKROW *MCU_data)
 {
   phuff_entropy_ptr entropy = (phuff_entropy_ptr) cinfo->entropy;
-  register int temp, temp2;
-  register int nbits;
-  register int r, k;
+  int temp, temp2;
+  int nbits;
+  int r, k;
   int Se = cinfo->Se;
   int Al = cinfo->Al;
   JBLOCKROW block;
@@ -18194,7 +18194,7 @@ METHODDEF(boolean)
 encode_mcu_DC_refine (j_compress_ptr cinfo, JBLOCKROW *MCU_data)
 {
   phuff_entropy_ptr entropy = (phuff_entropy_ptr) cinfo->entropy;
-  register int temp;
+  int temp;
   int blkn;
   int Al = cinfo->Al;
   JBLOCKROW block;
@@ -18240,8 +18240,8 @@ METHODDEF(boolean)
 encode_mcu_AC_refine (j_compress_ptr cinfo, JBLOCKROW *MCU_data)
 {
   phuff_entropy_ptr entropy = (phuff_entropy_ptr) cinfo->entropy;
-  register int temp;
-  register int r, k;
+  int temp;
+  int r, k;
   int EOB;
   char *BR_buffer;
   unsigned int BR;
@@ -18540,7 +18540,7 @@ LOCAL(void)
 expand_bottom_edge (JSAMPARRAY image_data, JDIMENSION num_cols,
 		    int input_rows, int output_rows)
 {
-  register int row;
+  int row;
 
   for (row = input_rows; row < output_rows; row++) {
 	jcopy_sample_rows(image_data, input_rows-1, image_data, row,
@@ -18824,9 +18824,9 @@ LOCAL(void)
 expand_right_edge (JSAMPARRAY image_data, int num_rows,
 		   JDIMENSION input_cols, JDIMENSION output_cols)
 {
-  register JSAMPROW ptr;
-  register JSAMPLE pixval;
-  register int count;
+  JSAMPROW ptr;
+  JSAMPLE pixval;
+  int count;
   int row;
   int numcols = (int) (output_cols - input_cols);
 
@@ -18948,8 +18948,8 @@ h2v1_downsample (j_compress_ptr cinfo, jpeg_component_info * compptr,
   int outrow;
   JDIMENSION outcol;
   JDIMENSION output_cols = compptr->width_in_blocks * DCTSIZE;
-  register JSAMPROW inptr, outptr;
-  register int bias;
+  JSAMPROW inptr, outptr;
+  int bias;
 
   /* Expand input data enough to let all the output samples be generated
    * by the standard loop.  Special-casing padded output would be more
@@ -18984,8 +18984,8 @@ h2v2_downsample (j_compress_ptr cinfo, jpeg_component_info * compptr,
   int inrow, outrow;
   JDIMENSION outcol;
   JDIMENSION output_cols = compptr->width_in_blocks * DCTSIZE;
-  register JSAMPROW inptr0, inptr1, outptr;
-  register int bias;
+  JSAMPROW inptr0, inptr1, outptr;
+  int bias;
 
   /* Expand input data enough to let all the output samples be generated
    * by the standard loop.  Special-casing padded output would be more
@@ -19026,7 +19026,7 @@ h2v2_smooth_downsample (j_compress_ptr cinfo, jpeg_component_info * compptr,
   int inrow, outrow;
   JDIMENSION colctr;
   JDIMENSION output_cols = compptr->width_in_blocks * DCTSIZE;
-  register JSAMPROW inptr0, inptr1, above_ptr, below_ptr, outptr;
+  JSAMPROW inptr0, inptr1, above_ptr, below_ptr, outptr;
   INT32 membersum, neighsum, memberscale, neighscale;
 
   /* Expand input data enough to let all the output samples be generated
@@ -19125,7 +19125,7 @@ fullsize_smooth_downsample (j_compress_ptr cinfo, jpeg_component_info *compptr,
   int outrow;
   JDIMENSION colctr;
   JDIMENSION output_cols = compptr->width_in_blocks * DCTSIZE;
-  register JSAMPROW inptr, above_ptr, below_ptr, outptr;
+  JSAMPROW inptr, above_ptr, below_ptr, outptr;
   INT32 membersum, neighsum, memberscale, neighscale;
   int colsum, lastcolsum, nextcolsum;
 
@@ -21243,7 +21243,7 @@ decompress_smooth_data (j_decompress_ptr cinfo, JSAMPIMAGE output_buf)
 	next_block_row = buffer_ptr;
 	  else
 	next_block_row = buffer[block_row+1];
-	  /* We fetch the surrounding DC values using a sliding-register approach.
+	  /* We fetch the surrounding DC values using a sliding-approach.
 	   * Initialize all nine here so as to do the right thing on narrow pics.
 	   */
 	  DC1 = DC2 = DC3 = (int) prev_block_row[0][0];
@@ -21540,17 +21540,17 @@ ycc_rgb_convert (j_decompress_ptr cinfo,
 		 JSAMPARRAY output_buf, int num_rows)
 {
   my_cconvert_ptr2 cconvert = (my_cconvert_ptr2) cinfo->cconvert;
-  register int y, cb, cr;
-  register JSAMPROW outptr;
-  register JSAMPROW inptr0, inptr1, inptr2;
-  register JDIMENSION col;
+  int y, cb, cr;
+  JSAMPROW outptr;
+  JSAMPROW inptr0, inptr1, inptr2;
+  JDIMENSION col;
   JDIMENSION num_cols = cinfo->output_width;
   /* copy these pointers into registers if possible */
-  register JSAMPLE * range_limit = cinfo->sample_range_limit;
-  register int * Crrtab = cconvert->Cr_r_tab;
-  register int * Cbbtab = cconvert->Cb_b_tab;
-  register INT32 * Crgtab = cconvert->Cr_g_tab;
-  register INT32 * Cbgtab = cconvert->Cb_g_tab;
+  JSAMPLE * range_limit = cinfo->sample_range_limit;
+  int * Crrtab = cconvert->Cr_r_tab;
+  int * Cbbtab = cconvert->Cb_b_tab;
+  INT32 * Crgtab = cconvert->Cr_g_tab;
+  INT32 * Cbgtab = cconvert->Cb_g_tab;
   SHIFT_TEMPS
 
   while (--num_rows >= 0) {
@@ -21586,9 +21586,9 @@ null_convert2 (j_decompress_ptr cinfo,
 	      JSAMPIMAGE input_buf, JDIMENSION input_row,
 	      JSAMPARRAY output_buf, int num_rows)
 {
-  register JSAMPROW inptr, outptr;
-  register JDIMENSION count;
-  register int num_components = cinfo->num_components;
+  JSAMPROW inptr, outptr;
+  JDIMENSION count;
+  int num_components = cinfo->num_components;
   JDIMENSION num_cols = cinfo->output_width;
   int ci;
 
@@ -21632,8 +21632,8 @@ gray_rgb_convert (j_decompress_ptr cinfo,
 		  JSAMPIMAGE input_buf, JDIMENSION input_row,
 		  JSAMPARRAY output_buf, int num_rows)
 {
-  register JSAMPROW inptr, outptr;
-  register JDIMENSION col;
+  JSAMPROW inptr, outptr;
+  JDIMENSION col;
   JDIMENSION num_cols = cinfo->output_width;
 
   while (--num_rows >= 0) {
@@ -21660,17 +21660,17 @@ ycck_cmyk_convert (j_decompress_ptr cinfo,
 		   JSAMPARRAY output_buf, int num_rows)
 {
   my_cconvert_ptr2 cconvert = (my_cconvert_ptr2) cinfo->cconvert;
-  register int y, cb, cr;
-  register JSAMPROW outptr;
-  register JSAMPROW inptr0, inptr1, inptr2, inptr3;
-  register JDIMENSION col;
+  int y, cb, cr;
+  JSAMPROW outptr;
+  JSAMPROW inptr0, inptr1, inptr2, inptr3;
+  JDIMENSION col;
   JDIMENSION num_cols = cinfo->output_width;
   /* copy these pointers into registers if possible */
-  register JSAMPLE * range_limit = cinfo->sample_range_limit;
-  register int * Crrtab = cconvert->Cr_r_tab;
-  register int * Cbbtab = cconvert->Cb_b_tab;
-  register INT32 * Crgtab = cconvert->Cr_g_tab;
-  register INT32 * Cbgtab = cconvert->Cb_g_tab;
+  JSAMPLE * range_limit = cinfo->sample_range_limit;
+  int * Crrtab = cconvert->Cr_r_tab;
+  int * Cbbtab = cconvert->Cb_b_tab;
+  INT32 * Crgtab = cconvert->Cr_g_tab;
+  INT32 * Cbgtab = cconvert->Cb_g_tab;
   SHIFT_TEMPS
 
   while (--num_rows >= 0) {
@@ -22147,7 +22147,7 @@ typedef struct {		/* Bitreading working state within an MCU */
   /* We need a copy, rather than munging the original, in case of suspension */
   const JOCTET * next_input_byte; /* => next byte to read from source */
   size_t bytes_in_buffer;	/* # of bytes remaining in source buffer */
-  /* Bit input buffer --- note these values are kept in register variables,
+  /* Bit input buffer --- note these values are kept in variables,
    * not in this struct, inside the inner loops.
    */
   bit_buf_type get_buffer;	/* current bit-extraction buffer */
@@ -22158,8 +22158,8 @@ typedef struct {		/* Bitreading working state within an MCU */
 
 /* Macros to declare and load/save bitread local variables. */
 #define BITREAD_STATE_VARS  \
-	register bit_buf_type get_buffer;  \
-	register int bits_left;  \
+	bit_buf_type get_buffer;  \
+	int bits_left;  \
 	bitread_working_state br_state
 
 #define BITREAD_LOAD_STATE(cinfop,permstate)  \
@@ -22210,8 +22210,8 @@ typedef struct {		/* Bitreading working state within an MCU */
 
 /* Load up the bit buffer to a depth of at least nbits */
 EXTERN(boolean) jpeg_fill_bit_buffer
-	JPP((bitread_working_state * state, register bit_buf_type get_buffer,
-	     register int bits_left, int nbits));
+	JPP((bitread_working_state * state, bit_buf_type get_buffer,
+	     int bits_left, int nbits));
 
 /*
  * Code for extracting next Huffman-coded symbol from input bit stream.
@@ -22231,7 +22231,7 @@ EXTERN(boolean) jpeg_fill_bit_buffer
  */
 
 #define HUFF_DECODE(result,state,htbl,failaction,slowlabel) \
-{ register int nb, look; \
+{ int nb, look; \
   if (bits_left < HUFF_LOOKAHEAD) { \
 	if (! jpeg_fill_bit_buffer(&state,get_buffer,bits_left, 0)) {failaction;} \
 	get_buffer = state.get_buffer; bits_left = state.bits_left; \
@@ -22254,8 +22254,8 @@ slowlabel: \
 
 /* Out-of-line case for Huffman code fetching */
 EXTERN(int) jpeg_huff_decode
-	JPP((bitread_working_state * state, register bit_buf_type get_buffer,
-	     register int bits_left, d_derived_tbl * htbl, int min_bits));
+	JPP((bitread_working_state * state, bit_buf_type get_buffer,
+	     int bits_left, d_derived_tbl * htbl, int min_bits));
 
 #endif
 
@@ -22526,13 +22526,13 @@ jpeg_make_d_derived_tbl (j_decompress_ptr cinfo, boolean isDC, int tblno,
 
 GLOBAL(boolean)
 jpeg_fill_bit_buffer (bitread_working_state * state,
-		      register bit_buf_type get_buffer, register int bits_left,
+		      bit_buf_type get_buffer, int bits_left,
 		      int nbits)
 /* Load up the bit buffer to a depth of at least nbits */
 {
   /* Copy heavily used state fields into locals (hopefully registers) */
-  register const JOCTET * next_input_byte = state->next_input_byte;
-  register size_t bytes_in_buffer = state->bytes_in_buffer;
+  const JOCTET * next_input_byte = state->next_input_byte;
+  size_t bytes_in_buffer = state->bytes_in_buffer;
   j_decompress_ptr cinfo = state->cinfo;
 
   /* Attempt to load at least MIN_GET_BITS bits into get_buffer. */
@@ -22541,7 +22541,7 @@ jpeg_fill_bit_buffer (bitread_working_state * state,
 
   if (cinfo->unread_marker == 0) {	/* cannot advance past a marker */
 	while (bits_left < MIN_GET_BITS) {
-	  register int c;
+	  int c;
 
 	  /* Attempt to read a byte */
 	  if (bytes_in_buffer == 0) {
@@ -22631,11 +22631,11 @@ jpeg_fill_bit_buffer (bitread_working_state * state,
 
 GLOBAL(int)
 jpeg_huff_decode (bitread_working_state * state,
-		  register bit_buf_type get_buffer, register int bits_left,
+		  bit_buf_type get_buffer, int bits_left,
 		  d_derived_tbl * htbl, int min_bits)
 {
-  register int l = min_bits;
-  register INT32 code;
+  int l = min_bits;
+  INT32 code;
 
   /* HUFF_DECODE has determined that the code is at least min_bits */
   /* bits long, so fetch that many bits in one swoop. */
@@ -22750,7 +22750,7 @@ decode_mcu (j_decompress_ptr cinfo, JBLOCKROW *MCU_data)
 	  JBLOCKROW block = MCU_data[blkn];
 	  d_derived_tbl * dctbl = entropy->dc_cur_tbls[blkn];
 	  d_derived_tbl * actbl = entropy->ac_cur_tbls[blkn];
-	  register int s, k, r;
+	  int s, k, r;
 
 	  /* Decode a single block's worth of coefficients */
 
@@ -25692,13 +25692,13 @@ h2v1_merged_upsample (j_decompress_ptr cinfo,
 		      JSAMPARRAY output_buf)
 {
   my_upsample_ptr upsample = (my_upsample_ptr) cinfo->upsample;
-  register int y, cred, cgreen, cblue;
+  int y, cred, cgreen, cblue;
   int cb, cr;
-  register JSAMPROW outptr;
+  JSAMPROW outptr;
   JSAMPROW inptr0, inptr1, inptr2;
   JDIMENSION col;
   /* copy these pointers into registers if possible */
-  register JSAMPLE * range_limit = cinfo->sample_range_limit;
+  JSAMPLE * range_limit = cinfo->sample_range_limit;
   int * Crrtab = upsample->Cr_r_tab;
   int * Cbbtab = upsample->Cb_b_tab;
   INT32 * Crgtab = upsample->Cr_g_tab;
@@ -25753,13 +25753,13 @@ h2v2_merged_upsample (j_decompress_ptr cinfo,
 		      JSAMPARRAY output_buf)
 {
   my_upsample_ptr upsample = (my_upsample_ptr) cinfo->upsample;
-  register int y, cred, cgreen, cblue;
+  int y, cred, cgreen, cblue;
   int cb, cr;
-  register JSAMPROW outptr0, outptr1;
+  JSAMPROW outptr0, outptr1;
   JSAMPROW inptr00, inptr01, inptr1, inptr2;
   JDIMENSION col;
   /* copy these pointers into registers if possible */
-  register JSAMPLE * range_limit = cinfo->sample_range_limit;
+  JSAMPLE * range_limit = cinfo->sample_range_limit;
   int * Crrtab = upsample->Cr_r_tab;
   int * Cbbtab = upsample->Cb_b_tab;
   INT32 * Crgtab = upsample->Cr_g_tab;
@@ -26106,7 +26106,7 @@ decode_mcu_DC_first (j_decompress_ptr cinfo, JBLOCKROW *MCU_data)
 {
   phuff_entropy_ptr2 entropy = (phuff_entropy_ptr2) cinfo->entropy;
   int Al = cinfo->Al;
-  register int s, r;
+  int s, r;
   int blkn, ci;
   JBLOCKROW block;
   BITREAD_STATE_VARS;
@@ -26177,7 +26177,7 @@ decode_mcu_AC_first (j_decompress_ptr cinfo, JBLOCKROW *MCU_data)
   phuff_entropy_ptr2 entropy = (phuff_entropy_ptr2) cinfo->entropy;
   int Se = cinfo->Se;
   int Al = cinfo->Al;
-  register int s, k, r;
+  int s, k, r;
   unsigned int EOBRUN;
   JBLOCKROW block;
   BITREAD_STATE_VARS;
@@ -26310,7 +26310,7 @@ decode_mcu_AC_refine (j_decompress_ptr cinfo, JBLOCKROW *MCU_data)
   int Se = cinfo->Se;
   int p1 = 1 << cinfo->Al;	/* 1 in the bit position being coded */
   int m1 = (-1) << cinfo->Al;	/* -1 in the bit position being coded */
-  register int s, k, r;
+  int s, k, r;
   unsigned int EOBRUN;
   JBLOCKROW block;
   JCOEFPTR thiscoef;
@@ -26920,9 +26920,9 @@ int_upsample (j_decompress_ptr cinfo, jpeg_component_info * compptr,
 {
   my_upsample_ptr2 upsample = (my_upsample_ptr2) cinfo->upsample;
   JSAMPARRAY output_data = *output_data_ptr;
-  register JSAMPROW inptr, outptr;
-  register JSAMPLE invalue;
-  register int h;
+  JSAMPROW inptr, outptr;
+  JSAMPLE invalue;
+  int h;
   JSAMPROW outend;
   int h_expand, v_expand;
   int inrow, outrow;
@@ -26962,8 +26962,8 @@ h2v1_upsample (j_decompress_ptr cinfo, jpeg_component_info *,
 	       JSAMPARRAY input_data, JSAMPARRAY * output_data_ptr)
 {
   JSAMPARRAY output_data = *output_data_ptr;
-  register JSAMPROW inptr, outptr;
-  register JSAMPLE invalue;
+  JSAMPROW inptr, outptr;
+  JSAMPLE invalue;
   JSAMPROW outend;
   int inrow;
 
@@ -26989,8 +26989,8 @@ h2v2_upsample (j_decompress_ptr cinfo, jpeg_component_info *,
 	       JSAMPARRAY input_data, JSAMPARRAY * output_data_ptr)
 {
   JSAMPARRAY output_data = *output_data_ptr;
-  register JSAMPROW inptr, outptr;
-  register JSAMPLE invalue;
+  JSAMPROW inptr, outptr;
+  JSAMPLE invalue;
   JSAMPROW outend;
   int inrow, outrow;
 
@@ -27031,9 +27031,9 @@ h2v1_fancy_upsample (j_decompress_ptr cinfo, jpeg_component_info * compptr,
 		     JSAMPARRAY input_data, JSAMPARRAY * output_data_ptr)
 {
   JSAMPARRAY output_data = *output_data_ptr;
-  register JSAMPROW inptr, outptr;
-  register int invalue;
-  register JDIMENSION colctr;
+  JSAMPROW inptr, outptr;
+  int invalue;
+  JDIMENSION colctr;
   int inrow;
 
   for (inrow = 0; inrow < cinfo->max_v_samp_factor; inrow++) {
@@ -27071,13 +27071,13 @@ h2v2_fancy_upsample (j_decompress_ptr cinfo, jpeg_component_info * compptr,
 		     JSAMPARRAY input_data, JSAMPARRAY * output_data_ptr)
 {
   JSAMPARRAY output_data = *output_data_ptr;
-  register JSAMPROW inptr0, inptr1, outptr;
+  JSAMPROW inptr0, inptr1, outptr;
 #if BITS_IN_JSAMPLE == 8
-  register int thiscolsum, lastcolsum, nextcolsum;
+  int thiscolsum, lastcolsum, nextcolsum;
 #else
-  register INT32 thiscolsum, lastcolsum, nextcolsum;
+  INT32 thiscolsum, lastcolsum, nextcolsum;
 #endif
-  register JDIMENSION colctr;
+  JDIMENSION colctr;
   int inrow, outrow, v;
 
   inrow = outrow = 0;
@@ -30970,12 +30970,12 @@ color_quantize (j_decompress_ptr cinfo, JSAMPARRAY input_buf,
 {
   my_cquantize_ptr cquantize = (my_cquantize_ptr) cinfo->cquantize;
   JSAMPARRAY colorindex = cquantize->colorindex;
-  register int pixcode, ci;
-  register JSAMPROW ptrin, ptrout;
+  int pixcode, ci;
+  JSAMPROW ptrin, ptrout;
   int row;
   JDIMENSION col;
   JDIMENSION width = cinfo->output_width;
-  register int nc = cinfo->out_color_components;
+  int nc = cinfo->out_color_components;
 
   for (row = 0; row < num_rows; row++) {
 	ptrin = input_buf[row];
@@ -30996,8 +30996,8 @@ color_quantize3 (j_decompress_ptr cinfo, JSAMPARRAY input_buf,
 /* Fast path for out_color_components==3, no dithering */
 {
   my_cquantize_ptr cquantize = (my_cquantize_ptr) cinfo->cquantize;
-  register int pixcode;
-  register JSAMPROW ptrin, ptrout;
+  int pixcode;
+  JSAMPROW ptrin, ptrout;
   JSAMPROW colorindex0 = cquantize->colorindex[0];
   JSAMPROW colorindex1 = cquantize->colorindex[1];
   JSAMPROW colorindex2 = cquantize->colorindex[2];
@@ -31023,8 +31023,8 @@ quantize_ord_dither (j_decompress_ptr cinfo, JSAMPARRAY input_buf,
 /* General case, with ordered dithering */
 {
   my_cquantize_ptr cquantize = (my_cquantize_ptr) cinfo->cquantize;
-  register JSAMPROW input_ptr;
-  register JSAMPROW output_ptr;
+  JSAMPROW input_ptr;
+  JSAMPROW output_ptr;
   JSAMPROW colorindex_ci;
   int * dither;			/* points to active row of dither matrix */
   int row_index, col_index;	/* current indexes into dither matrix */
@@ -31072,9 +31072,9 @@ quantize3_ord_dither (j_decompress_ptr cinfo, JSAMPARRAY input_buf,
 /* Fast path for out_color_components==3, with ordered dithering */
 {
   my_cquantize_ptr cquantize = (my_cquantize_ptr) cinfo->cquantize;
-  register int pixcode;
-  register JSAMPROW input_ptr;
-  register JSAMPROW output_ptr;
+  int pixcode;
+  JSAMPROW input_ptr;
+  JSAMPROW output_ptr;
   JSAMPROW colorindex0 = cquantize->colorindex[0];
   JSAMPROW colorindex1 = cquantize->colorindex[1];
   JSAMPROW colorindex2 = cquantize->colorindex[2];
@@ -31116,14 +31116,14 @@ quantize_fs_dither (j_decompress_ptr cinfo, JSAMPARRAY input_buf,
 /* General case, with Floyd-Steinberg dithering */
 {
   my_cquantize_ptr cquantize = (my_cquantize_ptr) cinfo->cquantize;
-  register LOCFSERROR cur;	/* current error or pixel value */
+  LOCFSERROR cur;	/* current error or pixel value */
   LOCFSERROR belowerr;		/* error for pixel below cur */
   LOCFSERROR bpreverr;		/* error for below/prev col */
   LOCFSERROR bnexterr;		/* error for below/next col */
   LOCFSERROR delta;
-  register FSERRPTR errorptr;	/* => fserrors[] at column before current */
-  register JSAMPROW input_ptr;
-  register JSAMPROW output_ptr;
+  FSERRPTR errorptr;	/* => fserrors[] at column before current */
+  JSAMPROW input_ptr;
+  JSAMPROW output_ptr;
   JSAMPROW colorindex_ci;
   JSAMPROW colormap_ci;
   int pixcode;
@@ -31558,9 +31558,9 @@ prescan_quantize (j_decompress_ptr cinfo, JSAMPARRAY input_buf,
 		  JSAMPARRAY, int num_rows)
 {
   my_cquantize_ptr2 cquantize = (my_cquantize_ptr2) cinfo->cquantize;
-  register JSAMPROW ptr;
-  register histptr histp;
-  register hist3d histogram = cquantize->histogram;
+  JSAMPROW ptr;
+  histptr histp;
+  hist3d histogram = cquantize->histogram;
   int row;
   JDIMENSION col;
   JDIMENSION width = cinfo->output_width;
@@ -31605,9 +31605,9 @@ find_biggest_color_pop (boxptr boxlist, int numboxes)
 /* Find the splittable box with the largest color population */
 /* Returns NULL if no splittable boxes remain */
 {
-  register boxptr boxp;
-  register int i;
-  register long maxc = 0;
+  boxptr boxp;
+  int i;
+  long maxc = 0;
   boxptr which = NULL;
 
   for (i = 0, boxp = boxlist; i < numboxes; i++, boxp++) {
@@ -31624,9 +31624,9 @@ find_biggest_volume (boxptr boxlist, int numboxes)
 /* Find the splittable box with the largest (scaled) volume */
 /* Returns NULL if no splittable boxes remain */
 {
-  register boxptr boxp;
-  register int i;
-  register INT32 maxv = 0;
+  boxptr boxp;
+  int i;
+  INT32 maxv = 0;
   boxptr which = NULL;
 
   for (i = 0, boxp = boxlist; i < numboxes; i++, boxp++) {
@@ -31755,7 +31755,7 @@ median_cut (j_decompress_ptr cinfo, boxptr boxlist, int numboxes,
 {
   int n,lb;
   int c0,c1,c2,cmax;
-  register boxptr b1,b2;
+  boxptr b1,b2;
 
   while (numboxes < desired_colors) {
 	/* Select box to split.
@@ -32105,12 +32105,12 @@ find_best_colors (j_decompress_ptr cinfo, int minc0, int minc1, int minc2,
 {
   int ic0, ic1, ic2;
   int i, icolor;
-  register INT32 * bptr;	/* pointer into bestdist[] array */
+  INT32 * bptr;	/* pointer into bestdist[] array */
   JSAMPLE * cptr;		/* pointer into bestcolor[] array */
   INT32 dist0, dist1;		/* initial distance values */
-  register INT32 dist2;		/* current distance in inner loop */
+  INT32 dist2;		/* current distance in inner loop */
   INT32 xx0, xx1;		/* distance increments */
-  register INT32 xx2;
+  INT32 xx2;
   INT32 inc0, inc1, inc2;	/* initial values for increments */
   /* This array holds the distance to the nearest-so-far color for each cell */
   INT32 bestdist[BOX_C0_ELEMS * BOX_C1_ELEMS * BOX_C2_ELEMS];
@@ -32182,8 +32182,8 @@ fill_inverse_cmap (j_decompress_ptr cinfo, int c0, int c1, int c2)
   hist3d histogram = cquantize->histogram;
   int minc0, minc1, minc2;	/* lower left corner of update box */
   int ic0, ic1, ic2;
-  register JSAMPLE * cptr;	/* pointer into bestcolor[] array */
-  register histptr cachep;	/* pointer into main cache array */
+  JSAMPLE * cptr;	/* pointer into bestcolor[] array */
+  histptr cachep;	/* pointer into main cache array */
   /* This array lists the candidate colormap indexes. */
   JSAMPLE colorlist[MAXNUMCOLORS];
   int numcolors;		/* number of candidate colors */
@@ -32360,7 +32360,7 @@ pass2_fs_dither (j_decompress_ptr cinfo,
 	   * Add these into the running sums, and simultaneously shift the
 	   * next-line error sums left by 1 column.
 	   */
-	  { register LOCFSERROR bnexterr, delta;
+	  { LOCFSERROR bnexterr, delta;
 
 	bnexterr = cur0;	/* Process component 0 */
 	delta = cur0 * 2;
@@ -32756,8 +32756,8 @@ jcopy_block_row (JBLOCKROW input_row, JBLOCKROW output_row,
 #ifdef FMEMCOPY
   FMEMCOPY(output_row, input_row, num_blocks * (DCTSIZE2 * SIZEOF(JCOEF)));
 #else
-  register JCOEFPTR inptr, outptr;
-  register long count;
+  JCOEFPTR inptr, outptr;
+  long count;
 
   inptr = (JCOEFPTR) input_row;
   outptr = (JCOEFPTR) output_row;
@@ -32775,8 +32775,8 @@ jzero_far (void FAR * target, size_t bytestozero)
 #ifdef FMEMZERO
   FMEMZERO(target, bytestozero);
 #else
-  register char FAR * ptr = (char FAR *) target;
-  register size_t count;
+  char FAR * ptr = (char FAR *) target;
+  size_t count;
 
   for (count = bytestozero; count > 0; count--) {
 	*ptr++ = 0;
