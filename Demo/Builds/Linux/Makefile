@@ -131,7 +131,7 @@ $(OBJDIR)/juce_events_amalgam_3b85cf07.o: ../../../JUCEAmalgam/include/juce_even
 $(OBJDIR)/juce_graphics_amalgam_6feed679.o: ../../../JUCEAmalgam/include/juce_graphics_amalgam.cpp
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling juce_graphics_amalgam.cpp"
-	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+	@$(CXX) $(CXXFLAGS) -Wno-address-of-packed-member -o "$@" -c "$<"
 
 $(OBJDIR)/juce_gui_basics_amalgam_4c508d77.o: ../../../JUCEAmalgam/include/juce_gui_basics_amalgam.cpp
 	-@mkdir -p $(OBJDIR)

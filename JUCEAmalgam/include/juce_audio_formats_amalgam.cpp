@@ -16952,6 +16952,9 @@ FLAC__bool FLAC__memory_alloc_aligned_real_array(unsigned elements, FLAC__real *
 #if _MSC_VER <= 1700 || defined __BORLANDC__ /* @@@ [2G limit] */
 #define fseeko fseek
 #define ftello ftell
+#else
+#define fseeko _fseeki64
+#define ftello _ftelli64
 #endif
 #endif
 
@@ -20329,6 +20332,9 @@ FLAC__bool file_eof_callback_(const FLAC__StreamDecoder *decoder, void *client_d
 #if _MSC_VER <= 1700 || defined __BORLANDC__ /* @@@ [2G limit] */
 #define fseeko fseek
 #define ftello ftell
+#else
+#define fseeko _fseeki64
+#define ftello _ftelli64
 #endif
 #endif
 
