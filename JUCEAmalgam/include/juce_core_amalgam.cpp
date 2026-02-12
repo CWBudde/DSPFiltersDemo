@@ -32318,8 +32318,8 @@ void Process::raisePrivilege()
 	// If running suid root, change effective user to root
 	if (geteuid() != 0 && getuid() == 0)
 	{
-		if (setreuid (geteuid(), getuid()) != 0) {}
-		if (setregid (getegid(), getgid()) != 0) {}
+		(void)setreuid (geteuid(), getuid());
+		(void)setregid (getegid(), getgid());
 	}
 }
 
@@ -32328,8 +32328,8 @@ void Process::lowerPrivilege()
 	// If runing suid root, change effective user back to real user
 	if (geteuid() == 0 && getuid() != 0)
 	{
-		if (setreuid (geteuid(), getuid()) != 0) {}
-		if (setregid (getegid(), getgid()) != 0) {}
+		(void)setreuid (geteuid(), getuid());
+		(void)setregid (getegid(), getgid());
 	}
 }
 
